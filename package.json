@@ -1,6 +1,6 @@
 {
   "name": "use-form-schema",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Super easy to use - react hook for form validation",
   "main": "use-form-v.js",
   "scripts": {
