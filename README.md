@@ -24,7 +24,6 @@ Next, define your form schema for validation process and create function for han
 
 ```jsx
 const AppLoginForm = () => {
-    const [errorMessage, setErrorMessage] = useState('');
     const schema = {
         login: {
             required: 'Field is required',
@@ -37,9 +36,9 @@ const AppLoginForm = () => {
     
 	const { register, errors, setErrors, isValidated } = useFormSchema(schema);
     const handleSubmit = data => {
-        ... if(req.status === 401) setErrorMessage('Bad credentials') ...
-        // or to handle messages from your backend
-        ... if(req.status === 400) setErrors(err.response.data.messages) ...
+        //...handle form data here...
+        //...if you want to handle messages from your backend:
+        if(req.status === 400) setErrors(err.response.data.messages);
     }
     
     return (...);
@@ -56,11 +55,22 @@ Form example:
     <input type="password" name="password"/>
     { errors.password && <p>{errors.password[0]}</p>}
 
-    { errorMessage && isValidated && <p>{errorMessage}</p>}
-
     <button type="submit">Log in</button>
 </form>
 ```
+
+If you're using form component and you can't register form:
+
+```jsx
+const {ref, onSubmit} = register(handleSubmit);
+
+<Form onSubmit={onSubmit}>
+    <div ref={ref}/>
+	...
+</Form>
+```
+
+This automatically bind ref to parent form element.
 
 ## Documentation
 
