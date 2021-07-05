@@ -169,8 +169,10 @@ export default function useFormSchema(schema) {
     }, [errors, validateField]);
 
     useEffect(() => {
-        const form = ref.current;
-        if (!form) return;
+        const form = ref.current instanceof HTMLElement
+            && ref.current.tagName === 'FORM' ? ref.current : ref.current = ref.current.parentElement;
+
+        if (!(form instanceof HTMLElement) || form.tagName !== 'FORM') throw new Error('Cannot register form');
         const fields = form.querySelectorAll('input, textarea, select');
         for (const field of fields) {
             field.addEventListener('change', onFieldUpdate, true);
@@ -213,8 +215,8 @@ export default function useFormSchema(schema) {
         setErrors(err);
     }, [validateForm]);
 
-    const register = useCallback(callback => {
-        return { onSubmit: e => handleSubmit(e, callback), ref }
+    const register = useCallback((callback) => {
+        return { onSubmit: e => handleSubmit(e, callback), ref };
     }, [handleSubmit]);
 
     return { register, errors, setErrors, isValidated, reset };
