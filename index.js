@@ -202,9 +202,9 @@ export default function useFormSchema(schema) {
     }, []);
 
     const handleSubmit = useCallback((e, callback) => {
-        e.preventDefault();
+        if (Object.keys(e).length > 0) e.preventDefault();
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(ref.current);
         const formDataObj = Object.fromEntries(formData);
 
         const err = validateForm(formDataObj);
