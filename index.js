@@ -47,9 +47,6 @@ export default function useFormSchema(schema) {
                     return new Error();
             }
         } else {
-            // handle date value
-            if (Date.parse(fieldValue)) fieldValue = Date.parse(fieldValue);
-
             // handle others types
             switch (constraintName) {
                 case 'required':
