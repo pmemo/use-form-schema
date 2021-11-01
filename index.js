@@ -166,6 +166,8 @@ export default function useFormSchema(schema) {
     }, [errors, validateField]);
 
     useEffect(() => {
+		if (!ref.current) return;
+		
         const form = ref.current instanceof HTMLElement
             && ref.current.tagName === 'FORM' ? ref.current : ref.current = ref.current.parentElement;
 
